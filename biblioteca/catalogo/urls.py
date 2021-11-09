@@ -7,6 +7,9 @@ urlpatterns = [
     path('autores/', AutoresListView.as_view(), name='listado_autores'),
     path('autor/<int:pk>', AuthorDetailView.as_view(),name='info_autor'),
     path('libro/<int:pk>', BookDetailView.as_view(),name='info_libro'),
-    path('libros/search_result', SearchResultsListView.as_view(),name='busqueda_libro'),
-    path('autor/create',crear_autor, name="crear_autor"),
+    path('buscarlibros/', SearchResultsListView.as_view(),name="buscalibros" ),
+    path('autor/crear',crear_autor, name="crear_autor"),
+    path('autor/crear2', CrearAutor.as_view(), name='crear_autor2'),
+    path('autor/modificar/<int:pk>', ModificarAutor.as_view(), name='modificar_autor'),
+    path('autor/eliminar/<int:pk>', EliminarAutor.as_view(), name='eliminar_autor'),
 ]
