@@ -20,4 +20,13 @@ def libro(request):
     datos = {'autor':'Sergio Soteras'}
     
     return render(request, 'libro.html', context=datos)
+
+def contacto(request):
+    '''
+    Pagina de contacto de nuestra web
+    '''
+    datos = {'autor':'Sergio Soteras',
+            'email': 'emaildecontacto@gmail.com',
+            'fax': '976542198'}
     
+    return render(request, 'contacto.html', context=datos)

@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include,path
-from catalogo.views import libro
+from catalogo.views import contacto, libro
 from catalogo.views import indice
+import debug_toolbar
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', indice, name='indice'),
     path('libro/<id>/',libro,name='libro'),
-    
+    path('__debug__/', include(debug_toolbar.urls)),
+    path('contacto', contacto, name='contacto'),
 ]
