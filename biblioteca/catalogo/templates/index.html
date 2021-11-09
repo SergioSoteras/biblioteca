@@ -4,8 +4,23 @@
 {% endblock %}
 {% block content %}
     <h1>Indice del catálogo</h1>
-    {{autor}}
-    <h2 class="mt-4">Últimos libros</h2>
+    <!--Formulario de búsqueda-->
+    <form class="form-inline mt-2 mt-md-0" 
+        action=""
+        method="get">
+    <input  name="q" 
+            class="form-control mr-sm-2" 
+            type="text" 
+            placeholder="Búsqueda de libros" 
+            aria-label="Search">
+    </form>
+    <!--Fin de formulario-->
+    <h2 class="mt-4">Catálogo</h2>
+    <ul>
+        <li><strong>Libros:</strong> {{ num_books }}</li>
+        <li><strong>Autores:</strong> {{ num_authors }}</li>
+    </ul>
+    <h2 class="mt-4">Últimos libros añadidos</h2>
     <ul>
     {% for libro in libros %}
         <li><a href ="{%url 'indice' %}">

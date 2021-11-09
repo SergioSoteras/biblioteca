@@ -23,7 +23,11 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', indice, name='indice'),
-    path('libro/<id>/',libro,name='libro'),
-    path('__debug__/', include(debug_toolbar.urls)),
+    path('libro/<id>/',libro,name='libro'),   
     path('contacto', contacto, name='contacto'),
+    path('catalogo/', include('catalogo.urls')),
+
+    
+    path('__debug__/', include(debug_toolbar.urls)),
+
 ]

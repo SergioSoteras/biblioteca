@@ -47,7 +47,7 @@ class Book(models.Model):
     summary = models.TextField('Resumen',blank=True)
     isbn = models.CharField(max_length=13,blank=True)
     fecha = models.DateField(blank = True, null=True, help_text='Fecha de publicación')
-    genre = models.ManyToManyField(Genre, verbose_name='Género')
+    genre = models.ManyToManyField(Genre, verbose_name='Género', blank=True)
     author = models.ForeignKey(Author,on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Autor')
     idioma = models.ForeignKey(Idioma,on_delete=models.SET_NULL, blank=True, null=True)
 
@@ -60,6 +60,12 @@ class Book(models.Model):
         """
         return ', '.join([ genre.name for genre in self.genre.all()[:3] ])
     display_genre.short_description = 'Género'
+    def disponible(self):
+        libros = self.bookinstance_set.all()
+        for l in libros:
+            if l.status == "a":
+                return True
+        return False
 
     class Meta:
         verbose_name='Libro'

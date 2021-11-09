@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+    <title>Listado de libros</title>
+{% endblock %}
+{% block content %}
+    <h1>Catálogo de la biblioteca</h1>
+    <ul>
+    {% for libro in libros %}
+        <li><a href ="#">
+             {{libro.title}}
+        </a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
