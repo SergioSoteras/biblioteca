@@ -60,6 +60,7 @@ class Book(models.Model):
         """
         return ', '.join([ genre.name for genre in self.genre.all()[:3] ])
     display_genre.short_description = 'Género'
+    
     def disponible(self):
         libros = self.bookinstance_set.all()
         for l in libros:

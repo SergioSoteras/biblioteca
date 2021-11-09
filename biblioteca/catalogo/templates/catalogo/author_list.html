@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block title %}
-    <title>Listado de libros</title>
+    <title>Listado de Autores</title>
 {% endblock %}
 {% block content %}
     <h1>Catálogo de la biblioteca</h1>
     <h2>Autores: </h2>
     <ul>
     {% for autor in author_list %}
-        <li>
-             {{autor.first_name}}&nbsp;{{author.last_name}}
-        </li>
+        <li><a href ="{%url 'info_autor' autor.id  %}">
+             {{autor.first_name}}&nbsp;{{autor.last_name}}
+        </a></li>
     {% endfor %}
     </ul>
 

@@ -63,6 +63,9 @@ class AutoresListView(generic.ListView):
     model = Author
     paginate_by = 15
 
+class AuthorDetailView(generic.DetailView):
+    model = Author
+
 class BookDetailView(generic.DetailView):
     model = Book
 

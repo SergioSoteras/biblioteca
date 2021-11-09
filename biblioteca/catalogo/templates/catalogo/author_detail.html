@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}
+    <title>{{author.first_name}}&nbsp;{{author.last_name}}</title>
+{% endblock %}
+{% block content %}
+  <h1>{{author.first_name}}&nbsp;{{author.last_name}}</h1>
+  <br>Fecha de Nacimiento : {{author.date_of_birth}}
+  {% if author.date_of_death %}
+      <br>Fecha de fallecimiento : {{author.date_of_death}}
+  {% endif %}
+  
+{% endblock %}

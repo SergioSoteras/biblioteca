@@ -18,6 +18,7 @@ class AuthorAdmin(admin.ModelAdmin):
         ('Fechas',
         {'fields': [('date_of_birth', 'date_of_death')]}) #misma linea
     )
+    list_filter = ['first_name','last_name']
     pass
 
 @admin.register(Genre)
