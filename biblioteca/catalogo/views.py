@@ -125,6 +125,7 @@ class ModificarAutor(SuccessMessageMixin, generic.UpdateView):
 # Creación de autor con CreateVio. Añadimos SuccessMesaageMixin para mensaje de éxito.
 class EliminarAutor(SuccessMessageMixin, generic.DeleteView):
     model = Author
+    template_name = 'autor_confirmar_borrado.html'
     success_url = '/'
     success_message = "%(first_name)s %(last_name)s se ha borrado correctamente"
-    template_name = 'autor_confirmar_borrado.html'
+    

@@ -60,18 +60,27 @@
             <li class="nav-item">
               <a class="nav-link" href="{%url 'contacto' %}">Contacto</a>
             </li>
-            <li> 
-              <a href="{% url 'crear_autor'%}">Crear Autor</a>
+            <li class="nav-item"> 
+              <a class="nav-link" href="{% url 'crear_autor'%}">Crear Autor</a>
             </li>
-            <li><a href="{% url 'crear_autor2'%}">Crear Autor (GenericView)</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'crear_autor2'%}">Crear Autor (GenericView)</a>
             </li>
   
-            <li><a href="{% url 'buscalibros'%}">Buscar</a>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'buscalibros'%}">Buscar</a>
             </li>
           </ul>          
         </div>
       </div>
     </nav>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div class="alert {% if message.tags %} alert-{{ message.tags }}{% else %}alert-primary{% endif %}" role="alert">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-2"></div>
