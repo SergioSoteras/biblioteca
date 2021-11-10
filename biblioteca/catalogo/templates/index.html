@@ -15,20 +15,37 @@
             aria-label="Search">
     </form>
     <!--Fin de formulario-->
+    {% if busqueda %}
+        {% if libros %}
+        <ul>
+            {% for libro in libros %}
+                <li><a href ="{%url 'info_libro' libro.id %}">
+                    {{libro.title}}
+                    {% if libro.author %}
+                        ({{libro.author.last_name}})
+                    {% endif %}
+                </a></li>
+            {% endfor %}
+            </ul>
+    
+         {% else %}
+            <p>"No se encontraron libros"</p>
+            {% endif %}
+    {% endif %}
     <h2 class="mt-4">Catálogo</h2>
     <ul>
         <li><strong>Libros:</strong> {{ num_books }}</li>
         <li><strong>Autores:</strong> {{ num_authors }}</li>
     </ul>
-    <h2 class="mt-4">Últimos libros añadidos</h2>
-    <ul>
-    {% for libro in libros %}
-        <li><a href ="{%url 'indice' %}">
-            {{libro.title}}
-            {% if libro.author %}
-                ({{libro.author.last_name}})
-            {% endif %}
-        </a></li>
-    {% endfor %}
-    </ul>
+    
+
+    <h3>Últimos libros añadidos</h3>
+    {% for libro in ultimoslibros %}
+    <li><a href ="{%url 'info_libro' libro.id %}">
+        {{libro.title}}
+        {% if libro.author %}
+            ({{libro.author.first_name}} {{libro.author.last_name}})
+        {% endif %}
+    </a></li>
+{% endfor %}
 {% endblock %}

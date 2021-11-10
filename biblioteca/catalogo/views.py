@@ -12,6 +12,7 @@ def indice(request):
     '''
     Pagina inicial de nuestra web
     '''
+    libros = None
     num_books = Book.objects.all().count()
     num_authors= Author.objects.all().count()
     datos = {'autor':'Sergio Soteras',
@@ -20,14 +21,16 @@ def indice(request):
     busqueda = request.GET.get('q')
     if busqueda:
         libros = Book.objects.filter(title__icontains = busqueda)
-        datos['noencontrado'] = True
-    else:
-        libros = Book.objects.all()
-     # últimos 5 libros del catálogo
-    libros = Book.objects.all().order_by('-id')[:5]
-
+        
     
-    datos['libros'] = libros
+    # últimos 5 libros del catálogo
+    ultimoslibros = Book.objects.all().order_by('-id')[:5]
+   
+    if libros:
+        datos['libros'] = libros
+    if busqueda:
+        datos['busqueda'] = busqueda
+    datos['ultimoslibros'] = ultimoslibros
     return render(request, 'index.html', context=datos)
 
 def libro(request):
@@ -110,7 +113,7 @@ class CrearAutor(SuccessMessageMixin, generic.CreateView):
     model = Author
     fields = '__all__'
     template_name = 'crear_autor.html'
-    success_url = '/'
+    success_url = '/catalogo/autores/'
     success_message = "%(first_name)s %(last_name)s se ha creado correctamente"
 
 
@@ -119,13 +122,17 @@ class ModificarAutor(SuccessMessageMixin, generic.UpdateView):
     model = Author
     fields = '__all__'
     template_name = 'modificar_autor.html'
-    success_url = '/'
+    success_url = '/catalogo/autores/'
     success_message = "%(first_name)s %(last_name)s se ha modificado correctamente"
 
 # Creación de autor con CreateVio. Añadimos SuccessMesaageMixin para mensaje de éxito.
-class EliminarAutor(SuccessMessageMixin, generic.DeleteView):
+class EliminarAutor(generic.DeleteView):
     model = Author
     template_name = 'autor_confirmar_borrado.html'
-    success_url = '/'
-    success_message = "%(first_name)s %(last_name)s se ha borrado correctamente"
+    success_url = '/catalogo/autores/'
+    success_message = "El autor se ha borrado correctamente"
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(EliminarAutor, self).delete(request, *args, **kwargs)
     

@@ -8,8 +8,8 @@
     <ul>
     {% for libro in book_list %}
         <li><a href ="{%url 'info_libro' libro.id  %}">
-             {% if libro.disponible  %} {{libro.title}} --> <span class="D"> Disponible </span>
-             {% else %} {{libro.title}} --> <span class="ND"> No disponible </span>
+             {% if libro.disponible  %} {{libro.title}} {% if libro.author  %}({{libro.author.first_name}} {{libro.author.last_name}}){% endif %} --> <span class="D"> Disponible </span>
+             {% else %} {{libro.title}} {% if libro.author  %}({{libro.author.first_name}} {{libro.author.last_name}}){% endif %}  --> <span class="ND"> No disponible </span>
              {% endif %}
         </a></li>
     {% endfor %}
