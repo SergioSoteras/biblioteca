@@ -3,11 +3,14 @@ from django.views.generic.list import ListView
 from catalogo.models import Book
 from catalogo.models import Author
 from django.views import generic
-from catalogo.forms import AuthorForm
+from catalogo.forms import AuthorForm, DateInput
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+# login obligatorio
+
 def indice(request):
     '''
     Pagina inicial de nuestra web
@@ -31,6 +34,11 @@ def indice(request):
     if busqueda:
         datos['busqueda'] = busqueda
     datos['ultimoslibros'] = ultimoslibros
+
+    # Number of visits to this view, as counted in the session variable.
+    visitas = request.session.get('visitas', 0)
+    request.session['visitas']= visitas + 1
+    datos['visitas'] = visitas
     return render(request, 'index.html', context=datos)
 
 def libro(request):
@@ -95,6 +103,7 @@ class SearchResultsListView(ListView):
         return []  # cuando entramos a buscar o si no se introduce nada
         
 # Creación de autor
+@login_required
 def crear_autor(request):
     if request.method == 'POST':
         form = AuthorForm(request.POST)
@@ -111,7 +120,8 @@ def crear_autor(request):
 # Creación de autor con CreateVio. Añadimos SuccessMesaageMixin para mensaje de éxito.
 class CrearAutor(SuccessMessageMixin, generic.CreateView):
     model = Author
-    fields = '__all__'
+    form_class = AuthorForm
+    
     template_name = 'crear_autor.html'
     success_url = '/catalogo/autores/'
     success_message = "%(first_name)s %(last_name)s se ha creado correctamente"
@@ -121,6 +131,7 @@ class CrearAutor(SuccessMessageMixin, generic.CreateView):
 class ModificarAutor(SuccessMessageMixin, generic.UpdateView):
     model = Author
     fields = '__all__'
+    
     template_name = 'modificar_autor.html'
     success_url = '/catalogo/autores/'
     success_message = "%(first_name)s %(last_name)s se ha modificado correctamente"

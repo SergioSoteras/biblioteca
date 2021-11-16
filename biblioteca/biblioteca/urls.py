@@ -26,6 +26,8 @@ urlpatterns = [
     path('libro/<id>/',libro,name='libro'),   
     path('contacto', contacto, name='contacto'),
     path('catalogo/', include('catalogo.urls')),
+    # para autenticacion
+    path('accounts/', include('django.contrib.auth.urls')),
 
     
     path('__debug__/', include(debug_toolbar.urls)),
